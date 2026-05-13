@@ -1,27 +1,35 @@
 import api from '../utils/api';
 
 export const userAPI = {
-  getAll: () => api.get('/users'),
-  getById: (id) => api.get(`/users/${id}`),
-  create: (data) => api.post('/users', data),
-  update: (id, data) => api.put(`/users/${id}`, data),
-  delete: (id) => api.delete(`/users/${id}`),
+  getAll: () => api.get('/consumer/get-users'),
+  getById: (id) => api.get(`/consumer/get-user/${id}`),
+  create: (data) => api.post('/consumer/add-user', data),
+  update: (id, data) => api.put(`/consumer/update-user/${id}`, data),
+  delete: (id) => api.delete(`/consumer/delete-user/${id}`),
 };
 
 export const roleAPI = {
-  getAll: () => api.get('/roles'),
-  getById: (id) => api.get(`/roles/${id}`),
-  create: (data) => api.post('/roles', data),
-  update: (id, data) => api.put(`/roles/${id}`, data),
-  delete: (id) => api.delete(`/roles/${id}`),
+  getAll: () => api.get('/consumer/roles'),
+  getById: (id) => api.get(`/consumer/roles/${id}`),
+  create: (data) => api.post('/consumer/roles', data),
+  update: (id, data) => api.put(`/consumer/roles/${id}`, data),
+  delete: (id) => api.delete(`/consumer/roles/${id}`),
 };
 
 export const permissionAPI = {
-  getAll: () => api.get('/permissions'),
-  getById: (id) => api.get(`/permissions/${id}`),
-  create: (data) => api.post('/permissions', data),
-  update: (id, data) => api.put(`/permissions/${id}`, data),
-  delete: (id) => api.delete(`/permissions/${id}`),
+  getAll: () => api.get('/consumer/permissions'),
+  getById: (id) => api.get(`/consumer/permissions/${id}`),
+  create: (data) => api.post('/consumer/permissions', data),
+  update: (id, data) => api.put(`/consumer/permissions/${id}`, data),
+  delete: (id) => api.delete(`/consumer/permissions/${id}`),
+};
+
+export const moduleAPI = {
+  getAll: () => api.get('/consumer/modules'),
+  getById: (id) => api.get(`/consumer/modules/${id}`),
+  create: (data) => api.post('/consumer/modules', data),
+  update: (id, data) => api.put(`/consumer/modules/${id}`, data),
+  delete: (id) => api.delete(`/consumer/modules/${id}`),
 };
 
 export const customerAPI = {
