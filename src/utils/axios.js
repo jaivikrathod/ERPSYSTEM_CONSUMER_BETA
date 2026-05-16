@@ -5,7 +5,7 @@ import { logout } from '../store/slices/authSlice';
 // Create a centralized axios instance
 const axiosInstance = axios.create({
   // Base URL from environment or fallback to localhost
-  baseURL: import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000/api',
+  baseURL: import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000',
   headers: {
     'Content-Type': 'application/json',
   },
@@ -14,9 +14,9 @@ const axiosInstance = axios.create({
 // Request Interceptor: Attach token automatically
 axiosInstance.interceptors.request.use(
   (config) => {
-    // Get token from Redux store
+    // Get token from Redux store, fallback to localStorage
     const state = store.getState();
-    const token = state.auth.token;
+    const token = state.auth?.token || localStorage.getItem('token');
 
     if (token) {
       config.headers['Authorization'] = `Bearer ${token}`;
@@ -39,9 +39,18 @@ axiosInstance.interceptors.response.use(
       // Dispatch logout action to clear state and local storage
       store.dispatch(logout());
       
-      // Optionally redirect to login, but usually state change handles this via routes
-      window.location.href = '/login';
+      // Prevent infinite redirect loop if already on login page
+      if (window.location.pathname !== '/login') {
+        window.location.href = '/login';
+      }
     }
+    
+    // Check if error is 403 Forbidden
+    if (error.response && error.response.status === 403) {
+      console.error("Access Denied: You do not have permission to perform this action.");
+      // Optionally could dispatch a global notification here
+    }
+
     return Promise.reject(error);
   }
 );

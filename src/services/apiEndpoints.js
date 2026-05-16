@@ -1,4 +1,13 @@
-import api from '../utils/api';
+import api from '../utils/axios';
+
+export const authAPI = {
+  login: (credentials) => api.post('/api/auth/login', credentials), // Changed to ERP Auth
+  register: (userData) => api.post('/consumer/register', userData), // Kept for legacy compatibility if needed
+};
+
+export const onboardingAPI = {
+  registerCompany: (data) => api.post('/api/onboarding/register', data),
+};
 
 export const userAPI = {
   getAll: () => api.get('/consumer/get-users'),
